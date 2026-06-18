@@ -1,0 +1,31 @@
+{
+  "winner": "calendar",
+  "fallback_image": "scenes/_fallback.png",
+  "users": {
+    "her": {
+      "calendar_id": "REPLACE_WITH_HER_CALENDAR_ID",
+      "default_state": "idle",
+      "states": [
+        { "id": "gym",   "keywords": ["gym", "workout", "lift", "run"] },
+        { "id": "study", "keywords": ["class", "study", "lecture", "hw", "exam"] },
+        { "id": "sleep", "keywords": ["sleep", "bed", "nap"] },
+        { "id": "relax", "keywords": ["relax", "break", "chill", "movie"] },
+        { "id": "idle",  "keywords": [] }
+      ]
+    },
+    "you": {
+      "calendar_id": "REPLACE_WITH_YOUR_CALENDAR_ID",
+      "default_state": "idle",
+      "states": [
+        { "id": "gym",   "keywords": ["gym", "workout", "lift"] },
+        { "id": "study", "keywords": ["work", "meeting", "focus", "deep work"] },
+        { "id": "sleep", "keywords": ["sleep", "bed"] },
+        { "id": "relax", "keywords": ["relax", "game", "chill"] },
+        { "id": "idle",  "keywords": [] }
+      ]
+    }
+  },
+  "pairs": {
+    "her:idle|you:idle": "scenes/her-idle__you-idle.png"
+  }
+}

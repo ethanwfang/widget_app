@@ -1,0 +1,26 @@
+name = "living-widget"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+# Poll Google Calendar every 15 minutes.
+[triggers]
+crons = ["*/15 * * * *"]
+
+# Tiny mutable runtime state (last Focus per user, last resolved image).
+# Create it with:  wrangler kv namespace create STATE
+# then paste the printed id below.
+[[kv_namespaces]]
+binding = "STATE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+# Where the Worker reads config + image assets (your GitHub repo, raw URLs).
+CONFIG_URL = "https://raw.githubusercontent.com/REPLACE_USER/REPLACE_REPO/main/config.json"
+SCENES_BASE_URL = "https://raw.githubusercontent.com/REPLACE_USER/REPLACE_REPO/main/"
+
+# Secrets — set each with:  wrangler secret put <NAME>
+#   SHARED_TOKEN              simple bearer the phones send on /update
+#   GOOGLE_CLIENT_ID
+#   GOOGLE_CLIENT_SECRET
+#   GOOGLE_REFRESH_TOKEN_HER  one-time OAuth consent per person (see BUILD_PLAN §5)
+#   GOOGLE_REFRESH_TOKEN_YOU
