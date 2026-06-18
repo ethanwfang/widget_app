@@ -25,7 +25,5 @@
       ]
     }
   },
-  "pairs": {
-    "her:idle|you:idle": "scenes/her-idle__you-idle.png"
-  }
+  "pairs": {}
 }
