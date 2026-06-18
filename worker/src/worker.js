@@ -33,7 +33,11 @@ const json = (o) => new Response(JSON.stringify(o, null, 2), {
 });
 
 async function loadConfig(env) {
-  const r = await fetch(env.CONFIG_URL, { cf: { cacheTtl: 60 } });
+  // Cache-bust both GitHub's Fastly cache and Cloudflare's edge cache so config
+  // edits propagate within ~30s instead of being pinned by GitHub's 5-min max-age.
+  const bust = Math.floor(Date.now() / 30_000); // rotates every 30s
+  const url = env.CONFIG_URL + (env.CONFIG_URL.includes("?") ? "&" : "?") + "v=" + bust;
+  const r = await fetch(url, { cf: { cacheTtl: 30 } });
   if (!r.ok) throw new Error(`config fetch failed: ${r.status}`);
   return r.json();
 }
