@@ -4,7 +4,7 @@
   "fallback_image": "scenes/_fallback.png",
   "users": {
     "her": {
-      "calendar_id": "REPLACE_WITH_HER_CALENDAR_ID",
+      "calendar_id": "primary",
       "default_state": "idle",
       "states": [
         { "id": "gym",   "keywords": ["gym", "workout", "lift", "run"] },
@@ -15,7 +15,7 @@
       ]
     },
     "you": {
-      "calendar_id": "REPLACE_WITH_YOUR_CALENDAR_ID",
+      "calendar_id": "primary",
       "default_state": "idle",
       "states": [
         { "id": "gym",   "keywords": ["gym", "workout", "lift"] },
