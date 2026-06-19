@@ -1,5 +1,6 @@
 {
   "winner": "calendar",
+  "focus_wins_states": ["sleep"],
   "fallback_image": "scenes/_fallback.png",
   "users": {
     "her": {

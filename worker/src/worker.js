@@ -113,9 +113,18 @@ function matchKeyword(title, userCfg) {
   return null;
 }
 
-// ---- resolution : calendar wins, then focus, then default ------------------
+// ---- resolution : focus-override > calendar > focus > default --------------
 async function resolveUser(env, cfg, user) {
   const userCfg = cfg.users[user];
+
+  const focusState = await env.STATE.get(`focus:${user}`);
+  const focusActive = focusState && focusState !== userCfg.default_state;
+
+  // Focus-override: states listed in focus_wins_states (e.g. "sleep") beat the
+  // calendar entirely. Used so Sleep DnD always shows the sleeping character,
+  // even if a calendar event happens to overlap.
+  const overrides = cfg.focus_wins_states || [];
+  if (focusActive && overrides.includes(focusState)) return focusState;
 
   let calState = null;
   try {
@@ -125,10 +134,7 @@ async function resolveUser(env, cfg, user) {
   }
 
   if (cfg.winner === "calendar" && calState) return calState;
-
-  const focusState = await env.STATE.get(`focus:${user}`);
-  if (focusState && focusState !== userCfg.default_state) return focusState;
-
+  if (focusActive) return focusState;
   if (cfg.winner === "focus" && calState) return calState; // focus-wins fallback path
   return calState || userCfg.default_state;
 }
