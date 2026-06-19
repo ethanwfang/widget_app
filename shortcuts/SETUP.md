@@ -8,8 +8,12 @@ Goal: when a Focus turns **on**, the phone POSTs that state to the Worker; when 
 - **user value:** `her` on her phone, `you` on your phone
 - **state value:** matches a state `id` in `config.json` (`gym`, `study`, `sleep`, `relax`), or `idle`
 
-You need **2 automations per Focus mode** (one ON, one OFF). With 4 active Focus modes
-that's 8 automations per phone. Build the first one fully, then duplicate.
+**Scope:** the ONLY Focus we drive from iOS is **Sleep**. Everything else (gym, study,
+relax) comes from Google Calendar keywords. So you build just **2 automations per phone**:
+Sleep ON → `sleep`, Sleep OFF → `idle`. That's it for Shortcuts.
+
+> Sleep is special: it's listed in `config.json` under `focus_wins_states`, so when Sleep
+> DnD is on it overrides any calendar event (you're asleep — the sleeping character wins).
 
 ---
 
@@ -59,21 +63,17 @@ Same as above, except:
 
 ## Duplicate for the rest
 
-The only things that change between automations are **the Focus picked** (step 3),
-**Is Turned On vs Off** (step 3), and the **`state` value** (step 7). Build the table below — 2 per Focus:
+You only need the **Sleep** row. The first automation above was the ON; build the OFF too:
 
 | Focus mode | Turning ON → state | Turning OFF → state |
 |------------|--------------------|---------------------|
-| Gym        | `gym`              | `idle`              |
-| Study      | `study`            | `idle`              |
 | Sleep      | `sleep`            | `idle`              |
-| Relax      | `relax`            | `idle`              |
 
-> Tip: Shortcuts doesn't let you duplicate an *automation* directly, but you can keep the
-> Get Contents of URL action identical and only retype the one `state` value each time.
-> Fastest path: build all 4 "ON" automations, then all 4 "OFF" automations.
+So per phone: **Sleep ON → `sleep`** and **Sleep OFF → `idle`** (2 automations).
+On **your phone** use `user` = **`you`**; on **her phone** use `user` = **`her`**.
 
-On **your phone**, repeat everything with `user` = **`you`**.
+> No gym/study/relax automations needed — those states arrive from Google Calendar
+> keyword matching once Calendar is wired up (M4).
 
 ---
 
